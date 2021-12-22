@@ -1,0 +1,1004 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled1.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyPYPGpJisHAfULD7BeUyaRh",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/pabhishekabi/Data-science_codes/blob/main/Data%20science%20assignment-1%20Q-7%20codes%20%20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "id": "-MXt2gc66tNc"
+      },
+      "outputs": [],
+      "source": [
+        "import numpy as np\n",
+        "import pandas as pd\n",
+        "import matplotlib.pyplot as plt\n",
+        "import seaborn as sns\n",
+        "%matplotlib inline"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "cars=pd.read_csv(\"/content/Q7.csv\")"
+      ],
+      "metadata": {
+        "id": "3smFf_347ZKa"
+      },
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "cars"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 1000
+        },
+        "id": "MnqR2wAn7d32",
+        "outputId": "bc04fc3c-a1ce-4674-814f-67a09adcf507"
+      },
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "\n",
+              "  <div id=\"df-f5922317-fe74-47f6-af66-6c0f35eb147d\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Unnamed: 0</th>\n",
+              "      <th>Points</th>\n",
+              "      <th>Score</th>\n",
+              "      <th>Weigh</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>Mazda RX4</td>\n",
+              "      <td>3.90</td>\n",
+              "      <td>2.620</td>\n",
+              "      <td>16.46</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>Mazda RX4 Wag</td>\n",
+              "      <td>3.90</td>\n",
+              "      <td>2.875</td>\n",
+              "      <td>17.02</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>Datsun 710</td>\n",
+              "      <td>3.85</td>\n",
+              "      <td>2.320</td>\n",
+              "      <td>18.61</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>3</th>\n",
+              "      <td>Hornet 4 Drive</td>\n",
+              "      <td>3.08</td>\n",
+              "      <td>3.215</td>\n",
+              "      <td>19.44</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>4</th>\n",
+              "      <td>Hornet Sportabout</td>\n",
+              "      <td>3.15</td>\n",
+              "      <td>3.440</td>\n",
+              "      <td>17.02</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>5</th>\n",
+              "      <td>Valiant</td>\n",
+              "      <td>2.76</td>\n",
+              "      <td>3.460</td>\n",
+              "      <td>20.22</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>6</th>\n",
+              "      <td>Duster 360</td>\n",
+              "      <td>3.21</td>\n",
+              "      <td>3.570</td>\n",
+              "      <td>15.84</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>7</th>\n",
+              "      <td>Merc 240D</td>\n",
+              "      <td>3.69</td>\n",
+              "      <td>3.190</td>\n",
+              "      <td>20.00</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>8</th>\n",
+              "      <td>Merc 230</td>\n",
+              "      <td>3.92</td>\n",
+              "      <td>3.150</td>\n",
+              "      <td>22.90</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>9</th>\n",
+              "      <td>Merc 280</td>\n",
+              "      <td>3.92</td>\n",
+              "      <td>3.440</td>\n",
+              "      <td>18.30</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>10</th>\n",
+              "      <td>Merc 280C</td>\n",
+              "      <td>3.92</td>\n",
+              "      <td>3.440</td>\n",
+              "      <td>18.90</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>11</th>\n",
+              "      <td>Merc 450SE</td>\n",
+              "      <td>3.07</td>\n",
+              "      <td>4.070</td>\n",
+              "      <td>17.40</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>12</th>\n",
+              "      <td>Merc 450SL</td>\n",
+              "      <td>3.07</td>\n",
+              "      <td>3.730</td>\n",
+              "      <td>17.60</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>13</th>\n",
+              "      <td>Merc 450SLC</td>\n",
+              "      <td>3.07</td>\n",
+              "      <td>3.780</td>\n",
+              "      <td>18.00</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>14</th>\n",
+              "      <td>Cadillac Fleetwood</td>\n",
+              "      <td>2.93</td>\n",
+              "      <td>5.250</td>\n",
+              "      <td>17.98</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>15</th>\n",
+              "      <td>Lincoln Continental</td>\n",
+              "      <td>3.00</td>\n",
+              "      <td>5.424</td>\n",
+              "      <td>17.82</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>16</th>\n",
+              "      <td>Chrysler Imperial</td>\n",
+              "      <td>3.23</td>\n",
+              "      <td>5.345</td>\n",
+              "      <td>17.42</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>17</th>\n",
+              "      <td>Fiat 128</td>\n",
+              "      <td>4.08</td>\n",
+              "      <td>2.200</td>\n",
+              "      <td>19.47</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>18</th>\n",
+              "      <td>Honda Civic</td>\n",
+              "      <td>4.93</td>\n",
+              "      <td>1.615</td>\n",
+              "      <td>18.52</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>19</th>\n",
+              "      <td>Toyota Corolla</td>\n",
+              "      <td>4.22</td>\n",
+              "      <td>1.835</td>\n",
+              "      <td>19.90</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>20</th>\n",
+              "      <td>Toyota Corona</td>\n",
+              "      <td>3.70</td>\n",
+              "      <td>2.465</td>\n",
+              "      <td>20.01</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>21</th>\n",
+              "      <td>Dodge Challenger</td>\n",
+              "      <td>2.76</td>\n",
+              "      <td>3.520</td>\n",
+              "      <td>16.87</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>22</th>\n",
+              "      <td>AMC Javelin</td>\n",
+              "      <td>3.15</td>\n",
+              "      <td>3.435</td>\n",
+              "      <td>17.30</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>23</th>\n",
+              "      <td>Camaro Z28</td>\n",
+              "      <td>3.73</td>\n",
+              "      <td>3.840</td>\n",
+              "      <td>15.41</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>24</th>\n",
+              "      <td>Pontiac Firebird</td>\n",
+              "      <td>3.08</td>\n",
+              "      <td>3.845</td>\n",
+              "      <td>17.05</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>25</th>\n",
+              "      <td>Fiat X1-9</td>\n",
+              "      <td>4.08</td>\n",
+              "      <td>1.935</td>\n",
+              "      <td>18.90</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>26</th>\n",
+              "      <td>Porsche 914-2</td>\n",
+              "      <td>4.43</td>\n",
+              "      <td>2.140</td>\n",
+              "      <td>16.70</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>27</th>\n",
+              "      <td>Lotus Europa</td>\n",
+              "      <td>3.77</td>\n",
+              "      <td>1.513</td>\n",
+              "      <td>16.90</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>28</th>\n",
+              "      <td>Ford Pantera L</td>\n",
+              "      <td>4.22</td>\n",
+              "      <td>3.170</td>\n",
+              "      <td>14.50</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>29</th>\n",
+              "      <td>Ferrari Dino</td>\n",
+              "      <td>3.62</td>\n",
+              "      <td>2.770</td>\n",
+              "      <td>15.50</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>30</th>\n",
+              "      <td>Maserati Bora</td>\n",
+              "      <td>3.54</td>\n",
+              "      <td>3.570</td>\n",
+              "      <td>14.60</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>31</th>\n",
+              "      <td>Volvo 142E</td>\n",
+              "      <td>4.11</td>\n",
+              "      <td>2.780</td>\n",
+              "      <td>18.60</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-f5922317-fe74-47f6-af66-6c0f35eb147d')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-f5922317-fe74-47f6-af66-6c0f35eb147d button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-f5922317-fe74-47f6-af66-6c0f35eb147d');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ],
+            "text/plain": [
+              "             Unnamed: 0  Points  Score  Weigh\n",
+              "0             Mazda RX4    3.90  2.620  16.46\n",
+              "1         Mazda RX4 Wag    3.90  2.875  17.02\n",
+              "2            Datsun 710    3.85  2.320  18.61\n",
+              "3        Hornet 4 Drive    3.08  3.215  19.44\n",
+              "4     Hornet Sportabout    3.15  3.440  17.02\n",
+              "5               Valiant    2.76  3.460  20.22\n",
+              "6            Duster 360    3.21  3.570  15.84\n",
+              "7             Merc 240D    3.69  3.190  20.00\n",
+              "8              Merc 230    3.92  3.150  22.90\n",
+              "9              Merc 280    3.92  3.440  18.30\n",
+              "10            Merc 280C    3.92  3.440  18.90\n",
+              "11           Merc 450SE    3.07  4.070  17.40\n",
+              "12           Merc 450SL    3.07  3.730  17.60\n",
+              "13          Merc 450SLC    3.07  3.780  18.00\n",
+              "14   Cadillac Fleetwood    2.93  5.250  17.98\n",
+              "15  Lincoln Continental    3.00  5.424  17.82\n",
+              "16    Chrysler Imperial    3.23  5.345  17.42\n",
+              "17             Fiat 128    4.08  2.200  19.47\n",
+              "18          Honda Civic    4.93  1.615  18.52\n",
+              "19       Toyota Corolla    4.22  1.835  19.90\n",
+              "20        Toyota Corona    3.70  2.465  20.01\n",
+              "21     Dodge Challenger    2.76  3.520  16.87\n",
+              "22          AMC Javelin    3.15  3.435  17.30\n",
+              "23           Camaro Z28    3.73  3.840  15.41\n",
+              "24     Pontiac Firebird    3.08  3.845  17.05\n",
+              "25            Fiat X1-9    4.08  1.935  18.90\n",
+              "26        Porsche 914-2    4.43  2.140  16.70\n",
+              "27         Lotus Europa    3.77  1.513  16.90\n",
+              "28       Ford Pantera L    4.22  3.170  14.50\n",
+              "29         Ferrari Dino    3.62  2.770  15.50\n",
+              "30        Maserati Bora    3.54  3.570  14.60\n",
+              "31           Volvo 142E    4.11  2.780  18.60"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 7
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        ""
+      ],
+      "metadata": {
+        "id": "3y47JdP-7m8J"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# Mean & median for whole data set"
+      ],
+      "metadata": {
+        "id": "Kn3a1dpT8Jwn"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "cars.mean()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "0I_FL4Xn8bnF",
+        "outputId": "a0ee8fdd-ad86-44d9-e9d0-5b4681d50eef"
+      },
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "Points     3.596563\n",
+              "Score      3.217250\n",
+              "Weigh     17.848750\n",
+              "dtype: float64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 9
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "cars.median()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "oqDU436Q8eg6",
+        "outputId": "4c0f5362-8c08-4756-f6e1-77e6e8934489"
+      },
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "Points     3.695\n",
+              "Score      3.325\n",
+              "Weigh     17.710\n",
+              "dtype: float64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 11
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Mode\n",
+        "cars.Points.mode() "
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "nEFSbyE18oGf",
+        "outputId": "5b8a25a8-ff05-45ab-8da3-9dab9bf76620"
+      },
+      "execution_count": 12,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0    3.07\n",
+              "1    3.92\n",
+              "dtype: float64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 12
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "cars.Score.mode()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "px4YTxyd9IUf",
+        "outputId": "ba954ab8-2fff-4e09-d420-4cad4aa097d0"
+      },
+      "execution_count": 13,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0    3.44\n",
+              "dtype: float64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 13
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "cars.Weigh.mode()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "IQjDKFCz9KTy",
+        "outputId": "2833538e-f855-47b6-8e14-022ceec6e5a6"
+      },
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0    17.02\n",
+              "1    18.90\n",
+              "dtype: float64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 14
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Variance\n",
+        "cars.var()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "5Bd1y7w59Prh",
+        "outputId": "0480d6c2-345a-4162-d3de-0e42d3ea3e7f"
+      },
+      "execution_count": 15,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "Points    0.285881\n",
+              "Score     0.957379\n",
+              "Weigh     3.193166\n",
+              "dtype: float64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 15
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Satndard Deviation\n",
+        "cars.std()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "wO5Mr1f29WUb",
+        "outputId": "025aaceb-8a6b-4874-8cea-baecada55a32"
+      },
+      "execution_count": 16,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "Points    0.534679\n",
+              "Score     0.978457\n",
+              "Weigh     1.786943\n",
+              "dtype: float64"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 16
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "## Range ##"
+      ],
+      "metadata": {
+        "id": "bTeaGSnJ9atQ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "cars.describe()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 300
+        },
+        "id": "WZJAail99ifk",
+        "outputId": "92d41e14-1f09-4688-9d39-4aa92bbf2a05"
+      },
+      "execution_count": 17,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "\n",
+              "  <div id=\"df-c13fb9bc-6533-4f0e-a833-911c201d5865\">\n",
+              "    <div class=\"colab-df-container\">\n",
+              "      <div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>Points</th>\n",
+              "      <th>Score</th>\n",
+              "      <th>Weigh</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>count</th>\n",
+              "      <td>32.000000</td>\n",
+              "      <td>32.000000</td>\n",
+              "      <td>32.000000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>mean</th>\n",
+              "      <td>3.596563</td>\n",
+              "      <td>3.217250</td>\n",
+              "      <td>17.848750</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>std</th>\n",
+              "      <td>0.534679</td>\n",
+              "      <td>0.978457</td>\n",
+              "      <td>1.786943</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>min</th>\n",
+              "      <td>2.760000</td>\n",
+              "      <td>1.513000</td>\n",
+              "      <td>14.500000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>25%</th>\n",
+              "      <td>3.080000</td>\n",
+              "      <td>2.581250</td>\n",
+              "      <td>16.892500</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>50%</th>\n",
+              "      <td>3.695000</td>\n",
+              "      <td>3.325000</td>\n",
+              "      <td>17.710000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>75%</th>\n",
+              "      <td>3.920000</td>\n",
+              "      <td>3.610000</td>\n",
+              "      <td>18.900000</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>max</th>\n",
+              "      <td>4.930000</td>\n",
+              "      <td>5.424000</td>\n",
+              "      <td>22.900000</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>\n",
+              "      <button class=\"colab-df-convert\" onclick=\"convertToInteractive('df-c13fb9bc-6533-4f0e-a833-911c201d5865')\"\n",
+              "              title=\"Convert this dataframe to an interactive table.\"\n",
+              "              style=\"display:none;\">\n",
+              "        \n",
+              "  <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\"viewBox=\"0 0 24 24\"\n",
+              "       width=\"24px\">\n",
+              "    <path d=\"M0 0h24v24H0V0z\" fill=\"none\"/>\n",
+              "    <path d=\"M18.56 5.44l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94zm-11 1L8.5 8.5l.94-2.06 2.06-.94-2.06-.94L8.5 2.5l-.94 2.06-2.06.94zm10 10l.94 2.06.94-2.06 2.06-.94-2.06-.94-.94-2.06-.94 2.06-2.06.94z\"/><path d=\"M17.41 7.96l-1.37-1.37c-.4-.4-.92-.59-1.43-.59-.52 0-1.04.2-1.43.59L10.3 9.45l-7.72 7.72c-.78.78-.78 2.05 0 2.83L4 21.41c.39.39.9.59 1.41.59.51 0 1.02-.2 1.41-.59l7.78-7.78 2.81-2.81c.8-.78.8-2.07 0-2.86zM5.41 20L4 18.59l7.72-7.72 1.47 1.35L5.41 20z\"/>\n",
+              "  </svg>\n",
+              "      </button>\n",
+              "      \n",
+              "  <style>\n",
+              "    .colab-df-container {\n",
+              "      display:flex;\n",
+              "      flex-wrap:wrap;\n",
+              "      gap: 12px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert {\n",
+              "      background-color: #E8F0FE;\n",
+              "      border: none;\n",
+              "      border-radius: 50%;\n",
+              "      cursor: pointer;\n",
+              "      display: none;\n",
+              "      fill: #1967D2;\n",
+              "      height: 32px;\n",
+              "      padding: 0 0 0 0;\n",
+              "      width: 32px;\n",
+              "    }\n",
+              "\n",
+              "    .colab-df-convert:hover {\n",
+              "      background-color: #E2EBFA;\n",
+              "      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);\n",
+              "      fill: #174EA6;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert {\n",
+              "      background-color: #3B4455;\n",
+              "      fill: #D2E3FC;\n",
+              "    }\n",
+              "\n",
+              "    [theme=dark] .colab-df-convert:hover {\n",
+              "      background-color: #434B5C;\n",
+              "      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);\n",
+              "      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));\n",
+              "      fill: #FFFFFF;\n",
+              "    }\n",
+              "  </style>\n",
+              "\n",
+              "      <script>\n",
+              "        const buttonEl =\n",
+              "          document.querySelector('#df-c13fb9bc-6533-4f0e-a833-911c201d5865 button.colab-df-convert');\n",
+              "        buttonEl.style.display =\n",
+              "          google.colab.kernel.accessAllowed ? 'block' : 'none';\n",
+              "\n",
+              "        async function convertToInteractive(key) {\n",
+              "          const element = document.querySelector('#df-c13fb9bc-6533-4f0e-a833-911c201d5865');\n",
+              "          const dataTable =\n",
+              "            await google.colab.kernel.invokeFunction('convertToInteractive',\n",
+              "                                                     [key], {});\n",
+              "          if (!dataTable) return;\n",
+              "\n",
+              "          const docLinkHtml = 'Like what you see? Visit the ' +\n",
+              "            '<a target=\"_blank\" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'\n",
+              "            + ' to learn more about interactive tables.';\n",
+              "          element.innerHTML = '';\n",
+              "          dataTable['output_type'] = 'display_data';\n",
+              "          await google.colab.output.renderOutput(dataTable, element);\n",
+              "          const docLink = document.createElement('div');\n",
+              "          docLink.innerHTML = docLinkHtml;\n",
+              "          element.appendChild(docLink);\n",
+              "        }\n",
+              "      </script>\n",
+              "    </div>\n",
+              "  </div>\n",
+              "  "
+            ],
+            "text/plain": [
+              "          Points      Score      Weigh\n",
+              "count  32.000000  32.000000  32.000000\n",
+              "mean    3.596563   3.217250  17.848750\n",
+              "std     0.534679   0.978457   1.786943\n",
+              "min     2.760000   1.513000  14.500000\n",
+              "25%     3.080000   2.581250  16.892500\n",
+              "50%     3.695000   3.325000  17.710000\n",
+              "75%     3.920000   3.610000  18.900000\n",
+              "max     4.930000   5.424000  22.900000"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 17
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "Points_Range=cars.Points.max()-cars.Points.min()\n",
+        "Points_Range"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Vy_9hu1e9m50",
+        "outputId": "67a57575-3d75-4bde-a6ac-9ed04390e576"
+      },
+      "execution_count": 18,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "2.17"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 18
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "Score_Range=cars.Score.max()-cars.Score.min()\n",
+        "Score_Range"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "DvPc9bce9tEo",
+        "outputId": "795cfab2-40b7-4919-ee32-3bc902de482e"
+      },
+      "execution_count": 19,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "3.9109999999999996"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 19
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "Weigh_Range=cars.Weigh.max()-cars.Weigh.min()\n",
+        "Weigh_Range"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "LsLXSQJl9xUc",
+        "outputId": "084dd767-e135-40c0-c0b9-81aedac4a613"
+      },
+      "execution_count": 20,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "8.399999999999999"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 20
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "f,ax=plt.subplots(figsize=(15,5))\n",
+        "plt.subplot(1,3,1)\n",
+        "plt.boxplot(cars.Points)\n",
+        "plt.title('Points')\n",
+        "plt.subplot(1,3,2)\n",
+        "plt.boxplot(cars.Score)\n",
+        "plt.title('Score')\n",
+        "plt.subplot(1,3,3)\n",
+        "plt.boxplot(cars.Weigh)\n",
+        "plt.title('Weigh')\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 336
+        },
+        "id": "ZEt-rsD890ol",
+        "outputId": "6ee20e27-53eb-4153-9a72-a96b4114fdef"
+      },
+      "execution_count": 21,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "image/png": "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\n",
+            "text/plain": [
+              "<Figure size 1080x360 with 3 Axes>"
+            ]
+          },
+          "metadata": {
+            "needs_background": "light"
+          }
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        ""
+      ],
+      "metadata": {
+        "id": "PR3qLEf-95Ix"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
